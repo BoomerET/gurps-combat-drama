@@ -5,7 +5,7 @@ Short, scene-wide [FXMaster](https://github.com/gambit07/fxmaster) effects for t
 
 | Event | When it fires (Basic Set) | Effect |
 | --- | --- | --- |
-| Major wound | One injury of more than ½ HP (B420) | Hard screen shake, red flash |
+| Major wound | One injury of more than ½ HP (B420) | Wounded token shakes and flashes red, light screen shake |
 | Reeling | Dropping below ⅓ HP (B419) | Light shake, faint red tint |
 | 0 HP | Dropping to 0 HP or less (B419) | Shake, scene drains of color |
 | Death check | Each new multiple of −1×HP (B419) | Violent shake, dark red |
@@ -46,7 +46,20 @@ Run this as a GM script macro (turn off **Only during combat** first, or start a
 game.modules.get("gurps-combat-drama").api.play("majorWound");
 ```
 
-`api.events` lists every event name.
+Select a token first to see the token part of the effect (only Major wound has one). Replace `"majorWound"` with any of these to preview a different effect:
+
+| Name | Event |
+| --- | --- |
+| `majorWound` | Major wound |
+| `reeling` | Reeling |
+| `collapse` | 0 HP |
+| `deathCheck` | Death check |
+| `dead` | Death |
+| `veryTired` | Very tired |
+| `exhausted` | 0 FP |
+| `fatigueCollapse` | Fatigue collapse |
+| `critSuccess` | Critical success |
+| `critFailure` | Critical failure |
 
 ## Settings
 
@@ -70,6 +83,9 @@ game.modules.get("gurps-combat-drama").api.play("majorWound");
   every client calling it would create duplicates. Each event uses fixed ids starting with `apiMacro_gcd_`,
   so a repeat replaces rather than stacks, and any left over after a GM reload are removed on startup.
 - **Scene-wide.** FXMaster filters cover the whole scene, so everyone on it sees each effect.
+- **Token effects.** Major wound also shakes and tints the wounded token (`scripts/tokenfx.js`). This only changes
+  how the token is drawn, nothing is saved, so the GM sends the event over the module socket and every client
+  animates it locally. Hidden tokens are skipped.
 
 ## Customizing effects
 

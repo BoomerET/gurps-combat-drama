@@ -56,8 +56,9 @@ const oldfilm = (k) => ({
  */
 export const RECIPES = {
   majorWound: k => ({
-    duration: 1400,
-    filters: [shake(0.6, 1.0, k, 0.7), color({ hex: "#ff6b6b", saturation: 1.2, contrast: 1.15 }, k)],
+    // Lighter than it would be alone: the wounded token also shakes and flashes red (tokenfx.js).
+    duration: 1000,
+    filters: [shake(0.3, 0.6, k, 0.7), color({ hex: "#ffb0b0", saturation: 1.1, contrast: 1.05 }, k)],
   }),
   reeling: k => ({
     duration: 1200,

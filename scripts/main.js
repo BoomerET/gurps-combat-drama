@@ -1,7 +1,9 @@
 import { detectHpEvents, detectFpEvents, mostSevere } from "./events.js";
 import { EVENT_KEYS, playEvent, cleanupLeftovers } from "./effects.js";
+import { TOKEN_RECIPES, playTokenEffect } from "./tokenfx.js";
 
 const MODULE_ID = "gurps-combat-drama";
+const SOCKET = `module.${MODULE_ID}`;
 const STASH = MODULE_ID; // key used to carry pre-update HP/FP in update options
 
 const setting = key => game.settings.get(MODULE_ID, key);
@@ -85,6 +87,26 @@ function shouldTrigger(actor, scene) {
   return true;
 }
 
+/** Play an event's token effect on every client (the sender doesn't receive its own socket message). */
+function fireTokens(eventKey, scene, tokenIds) {
+  if (!TOKEN_RECIPES[eventKey] || !tokenIds.length) return;
+  const msg = {
+    type: "tokenFx",
+    key: eventKey,
+    sceneId: scene.id,
+    tokenIds,
+    intensity: setting("intensity"),
+    durationScale: setting("durationScale"),
+  };
+  game.socket.emit(SOCKET, msg);
+  onSocket(msg);
+}
+
+function onSocket(msg) {
+  if (msg?.type !== "tokenFx") return;
+  playTokenEffect(msg.key, msg.sceneId, msg.tokenIds, msg);
+}
+
 function fire(eventKey, actor) {
   for (const scene of scenesFor(actor)) {
     if (!shouldTrigger(actor, scene)) continue;
@@ -92,6 +114,7 @@ function fire(eventKey, actor) {
       intensity: setting("intensity"),
       durationScale: setting("durationScale"),
     }).catch(err => console.error(`${MODULE_ID} | could not play ${eventKey}`, err));
+    fireTokens(eventKey, scene, tokensOn(actor, scene).filter(t => !t.hidden).map(t => t.id));
   }
 }
 
@@ -215,13 +238,18 @@ Hooks.once("ready", async () => {
   }
 
   wrapTargetedRolls();
+  game.socket.on(SOCKET, onSocket);
 
   game.modules.get(MODULE_ID).api = {
     events: [...EVENT_KEYS],
-    /** Preview an effect: game.modules.get("gurps-combat-drama").api.play("majorWound") */
-    play(key, { scene = canvas.scene } = {}) {
+    /**
+     * Preview an effect: game.modules.get("gurps-combat-drama").api.play("majorWound")
+     * Token effects play on the selected tokens.
+     */
+    play(key, { scene = canvas.scene, tokens = canvas.tokens.controlled } = {}) {
       if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("GCD.Errors.GMOnly"));
       if (!EVENT_KEYS.includes(key)) return ui.notifications.warn(`Unknown event "${key}". Try: ${EVENT_KEYS.join(", ")}`);
+      fireTokens(key, scene, tokens.map(t => t.id));
       return playEvent(key, scene, { intensity: setting("intensity"), durationScale: setting("durationScale") });
     },
   };
