@@ -25,6 +25,14 @@ only the most severe one plays. Healing and FP recovery never trigger anything.
 - GURPS 4e Game Aid 0.18 or later
 - FXMaster 8 or later (FXMaster+ is **not** needed; only core filters are used)
 
+## Install
+
+In Foundry's **Add-on Modules** tab, click **Install Module** and paste this manifest URL:
+
+```
+https://github.com/BoomerET/gurps-combat-drama/releases/latest/download/module.json
+```
+
 ## Install for testing
 
 Copy the `gurps-combat-drama` folder into your Foundry data folder under `Data/modules/`, restart Foundry,
