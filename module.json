@@ -1,0 +1,45 @@
+{
+  "id": "gurps-combat-drama",
+  "title": "GURPS Combat Drama",
+  "description": "Scene-wide FXMaster effects for dramatic GURPS moments: major wounds, collapse, death checks, exhaustion, and critical successes and failures.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "David Berkompas",
+      "email": "david.berkompas@gmail.com"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "gurps",
+        "type": "system",
+        "compatibility": { "minimum": "0.18.0" }
+      }
+    ],
+    "requires": [
+      {
+        "id": "fxmaster",
+        "type": "module",
+        "compatibility": { "minimum": "8.0.0" }
+      }
+    ]
+  },
+  "esmodules": ["scripts/main.js"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "MIT",
+  "readme": "README.md"
+}

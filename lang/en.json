@@ -1,0 +1,81 @@
+{
+  "GCD": {
+    "Errors": {
+      "NoFxmaster": "GURPS Combat Drama needs FXMaster 8 or later to be active.",
+      "GMOnly": "Only a GM can play Combat Drama effects."
+    },
+    "Settings": {
+      "enabled": {
+        "Name": "Enable Combat Drama",
+        "Hint": "Master switch for all effects from this module."
+      },
+      "combatOnly": {
+        "Name": "Only during combat",
+        "Hint": "Only play effects while a combat is running on that scene."
+      },
+      "whoTriggers": {
+        "Name": "Who triggers effects",
+        "Hint": "Whose wounds and rolls cause effects. Effects are scene-wide, so everyone on the scene sees them.",
+        "all": "Everyone",
+        "players": "Player characters only",
+        "npcs": "NPCs only"
+      },
+      "skipHidden": {
+        "Name": "Ignore hidden tokens",
+        "Hint": "Don't play effects for actors whose tokens are all hidden, so players aren't tipped off."
+      },
+      "intensity": {
+        "Name": "Intensity",
+        "Hint": "How strong the shake, tint and glow are. 1 is the default."
+      },
+      "durationScale": {
+        "Name": "Duration",
+        "Hint": "Multiplier for how long each effect stays on screen."
+      },
+      "rollDelay": {
+        "Name": "Roll effect delay (ms)",
+        "Hint": "Wait before critical success/failure effects. Set around 2500 if you use Dice So Nice, so the effect lands after the dice settle."
+      },
+      "event_majorWound": {
+        "Name": "Effect: Major wound",
+        "Hint": "A single injury of more than 1/2 HP (B420)."
+      },
+      "event_reeling": {
+        "Name": "Effect: Reeling",
+        "Hint": "Dropping below 1/3 HP (B419)."
+      },
+      "event_collapse": {
+        "Name": "Effect: 0 HP",
+        "Hint": "Dropping to 0 HP or less, when consciousness rolls begin (B419)."
+      },
+      "event_deathCheck": {
+        "Name": "Effect: Death check",
+        "Hint": "Reaching each new multiple of -1×HP, when a HT roll to survive is needed (B419)."
+      },
+      "event_dead": {
+        "Name": "Effect: Death",
+        "Hint": "Reaching -5×HP (B419)."
+      },
+      "event_veryTired": {
+        "Name": "Effect: Very tired",
+        "Hint": "Dropping below 1/3 FP (B426)."
+      },
+      "event_exhausted": {
+        "Name": "Effect: 0 FP",
+        "Hint": "Dropping to 0 FP or less, on the verge of collapse (B426)."
+      },
+      "event_fatigueCollapse": {
+        "Name": "Effect: Fatigue collapse",
+        "Hint": "Reaching -1×FP (B426)."
+      },
+      "event_critSuccess": {
+        "Name": "Effect: Critical success",
+        "Hint": "Any targeted roll that is a critical success."
+      },
+      "event_critFailure": {
+        "Name": "Effect: Critical failure",
+        "Hint": "Any targeted roll that is a critical failure."
+      }
+    }
+  }
+}
